@@ -1,8 +1,9 @@
-'use strict';
 
 const del = require(`del`);
 const gulp = require(`gulp`);
 const sass = require(`gulp-sass`);
+const rollup = require(`gulp-better-rollup`);
+const sourcemaps = require(`gulp-sourcemaps`);
 const plumber = require(`gulp-plumber`);
 const postcss = require(`gulp-postcss`);
 const autoprefixer = require(`autoprefixer`);
@@ -45,11 +46,16 @@ gulp.task(`sprite`, () => {
   .pipe(gulp.dest(`build/img`));
 });
 
+
 gulp.task(`scripts`, () => {
-  return gulp.src(`js/**/*.js`).
-    pipe(plumber()).
-    pipe(gulp.dest(`build/js/`));
+  return gulp.src(`js/main.js`)
+  .pipe(plumber())
+  .pipe(sourcemaps.init())
+  .pipe(rollup({}, `iife`))
+  .pipe(sourcemaps.write(``))
+  .pipe(gulp.dest(`build/js`));
 });
+
 
 gulp.task(`imagemin`, [`copy`], () => {
   return gulp.src(`build/img/**/*.{jpg,png,gif}`).
