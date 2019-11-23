@@ -1,4 +1,4 @@
-import {render} from './util';
+import {render} from '../util';
 import backToGreeting from './back';
 
 const statsTemplate = render(`<header class="header">

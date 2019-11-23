@@ -1,4 +1,4 @@
-import {changeScreen} from './util';
+import {changeScreen} from '../util';
 import greetingTemplate from './greeting';
 
 const backToGreeting = (backButton) => {

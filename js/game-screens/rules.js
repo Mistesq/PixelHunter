@@ -1,4 +1,4 @@
-import {render, changeScreen} from './util';
+import {render, changeScreen} from '../util';
 import gameOneTemplate from './game-1';
 import backToGreeting from './back';
 
