@@ -66,7 +66,7 @@ backToGreeting(backBtn);
 
 const gameFormHandler = () => {
   const questionsAnswered = [...gameOptions].filter((item) => item.control.checked);
-  if (questionsAnswered.length === QUESTION_COUNT ) {
+  if (questionsAnswered.length === QUESTION_COUNT) {
     changeScreen(gameTwoTemplate);
   }
 };

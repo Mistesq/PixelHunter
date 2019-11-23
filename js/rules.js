@@ -44,7 +44,7 @@ backToGreeting(backBtn);
 
 const rulesInputHandler = () => {
   rulesBtn.disabled = rulesInput.value !== `` ? false : true;
-}
+};
 
 rulesInput.addEventListener(`input`, rulesInputHandler);
 
