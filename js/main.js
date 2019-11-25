@@ -1,4 +1,4 @@
-import introTemplate from './game-screens/intro';
-import {changeScreen} from './util';
+import introTemplate from './view/intro';
+import {renderScreen} from './utils';
 
-changeScreen(introTemplate);
+renderScreen(introTemplate());
