@@ -1,10 +1,15 @@
-import {render, renderScreen, handleBackButtonClick} from '../utils';
-import getHeader from "./header";
-import {renderFirstGameScreen} from "../data/data";
+import AbstractView from "./abstract-view";
 
-const getRulesScreen = () => {
-  const template = `
-  ${getHeader()}
+class RulesView extends AbstractView {
+  constructor(callback) {
+    super();
+    this.callback = callback;
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  get template() {
+    return `
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
@@ -20,41 +25,37 @@ const getRulesScreen = () => {
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
-  </section>
-  `;
+  </section>`;
+  }
 
-  const element = render(template);
-  const form = element.querySelector(`.rules__form`);
-  const input = form.querySelector(`.rules__input`);
-  const button = form.querySelector(`.rules__button`);
+  bind() {
+    this.form = this._element.querySelector(`.rules__form`);
+    this.input = this.form.querySelector(`.rules__input`);
+    this.button = this.form.querySelector(`.rules__button`);
+    this.form.addEventListener(`submit`, this.onFormSubmit);
+    this.input.addEventListener(`input`, this.onInputChange);
+  }
 
-  const onInputChange = (event) => {
+  unbind() {
+    this.form.addEventListener(`submit`, this.onFormSubmit);
+    this.input.addEventListener(`input`, this.onInputChange);
+  }
+
+  onFormSubmit(event) {
+    event.preventDefault();
+    this.unbind();
+    this.callback();
+  }
+
+  onInputChange(event) {
     const {value} = event.target;
 
     if (value) {
-      button.disabled = false;
+      this.button.disabled = false;
     } else {
-      button.disabled = true;
+      this.button.disabled = true;
     }
-  };
+  }
+}
 
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-    unsubscribe();
-
-    renderFirstGameScreen();
-  };
-
-  const unsubscribe = () => {
-    input.removeEventListener(`input`, onInputChange);
-    form.removeEventListener(`submit`, onFormSubmit);
-  };
-
-  input.addEventListener(`input`, onInputChange);
-  form.addEventListener(`submit`, onFormSubmit);
-  handleBackButtonClick(element, unsubscribe);
-
-  return element;
-};
-
-export default getRulesScreen;
+export default RulesView;

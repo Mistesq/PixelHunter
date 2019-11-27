@@ -1,4 +1,4 @@
-import greetingScreen from "./view/greeting";
+import GreetingView from "./view/greeting-view";
 
 export const handleBackButtonClick = (element, unsubscribe) => {
   const arrow = element.querySelector(`.back`);
@@ -9,7 +9,7 @@ export const handleBackButtonClick = (element, unsubscribe) => {
     }
 
     arrow.removeEventListener(`click`, onBackButtonClick);
-    renderScreen(greetingScreen());
+    renderScreen(new GreetingView().element);
   };
 
   arrow.addEventListener(`click`, onBackButtonClick);
