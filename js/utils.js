@@ -1,4 +1,4 @@
-import GreetingView from "./view/greeting-view";
+import GreetingView from "./screens/greeting-view";
 
 export const handleBackButtonClick = (element, unsubscribe) => {
   const arrow = element.querySelector(`.back`);
@@ -41,4 +41,10 @@ export const getAnswersHandler = (callback) => (event) => {
 
     callback(answer);
   }
+};
+
+export const getRenderContainer = (template = ``, tagName = `div`) => {
+  const wrapper = document.createElement(tagName);
+  wrapper.innerHTML = template.trim();
+  return wrapper;
 };

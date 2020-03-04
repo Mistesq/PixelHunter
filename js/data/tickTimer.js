@@ -1,11 +1,11 @@
-const tickTimer = ({timer, lives, level}) => {
+const tickTimer = ({timer}) => {
   timer--;
 
   if (timer < 0) {
     return false;
   }
 
-  return {timer, lives, level};
+  return timer;
 };
 
 export default tickTimer;

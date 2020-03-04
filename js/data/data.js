@@ -1,24 +1,3 @@
-import {QuestionTypes, initialState, AnswerTypes, MAX_LEVEL} from "../constants";
-import GameOneImageView from "../view/gameOneImage-view";
-import GameTwoImagesView from "../view/gameTwoImages-view";
-import GameThreeImagesView from "../view/gameThreeImages-view";
-import toggleLevel from "./toggleLevel";
-import getCorrectAnswerType from "./getCorrectAnswerType";
-import {renderScreen} from "../utils";
-import StatsView from "../view/stats-view";
-
-export const getGameView = (gameViewType, state, level, callback) => {
-  switch (gameViewType) {
-    case QuestionTypes.GAME_ONE_SCREEN:
-      return new GameOneImageView(state, level, callback).element;
-    case QuestionTypes.GAME_TWO_SCREEN:
-      return new GameTwoImagesView(state, level, callback).element;
-    case QuestionTypes.GAME_THREE_SCREEN:
-      return new GameThreeImagesView(state, level, callback).element;
-    default:
-      throw new Error(`incorrect type of GameView`);
-  }
-};
 
 export const questions = [
   {
@@ -250,46 +229,3 @@ export const questions = [
     ]
   }
 ];
-
-export const renderFirstGameScreen = () => {
-  const firstLevel = questions[0];
-  const firstGameScreen = getGameView(
-      firstLevel.type,
-      initialState,
-      firstLevel,
-      toggleScreens
-  );
-
-  renderScreen(firstGameScreen);
-};
-
-export const isCorrect = (answer, state) => {
-  return answer.every(
-      (item, index) => item === questions[state.level - 1].answers[index].type
-  );
-};
-
-export const isFailed = (state) => {
-  return state.lives < 0;
-};
-
-export const isEnded = (state) => {
-  return state.level > MAX_LEVEL;
-};
-
-export const toggleScreens = (answer, state) => {
-  const correct = isCorrect(answer, state);
-  const answerType = correct
-    ? getCorrectAnswerType(state.timer)
-    : AnswerTypes.WRONG;
-  const newState = toggleLevel(answerType, state);
-
-  if (isFailed(newState) || isEnded(newState)) {
-    renderScreen(new StatsView(newState).element);
-    return;
-  }
-
-  const newLevel = questions[newState.level - 1];
-
-  renderScreen(getGameView(newLevel.type, newState, newLevel, toggleScreens));
-};

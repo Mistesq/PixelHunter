@@ -6,9 +6,10 @@ should();
 
 describe(`tickTimer`, () => {
   it(`icrease timer if time more then null`, () => {
-    tickTimer(INITIAL_STATE)
+    tickTimer(initialState)
       .should.has.property(`timer`)
       .equal(29);
+      .should.equal(29);
   });
 
   it(`return false if time less then null`, () => {

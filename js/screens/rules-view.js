@@ -1,9 +1,8 @@
 import AbstractView from "./abstract-view";
 
 class RulesView extends AbstractView {
-  constructor(callback) {
+  constructor() {
     super();
-    this.callback = callback;
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -41,21 +40,9 @@ class RulesView extends AbstractView {
     this.input.addEventListener(`input`, this.onInputChange);
   }
 
-  onFormSubmit(event) {
-    event.preventDefault();
-    this.unbind();
-    this.callback();
-  }
+  onFormSubmit() {}
 
-  onInputChange(event) {
-    const {value} = event.target;
-
-    if (value) {
-      this.button.disabled = false;
-    } else {
-      this.button.disabled = true;
-    }
-  }
+  onInputChange() {}
 }
 
 export default RulesView;

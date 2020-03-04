@@ -29,7 +29,7 @@ class GameThreeImagesView extends AbstractView {
          <form class="game__content  game__content--triple">
            ${answers
              .map((answer, index) =>
-               OneOfThreeView.getOption(answer.image, index + 1)
+               GameThreeImagesView.getOption(answer.image, index + 1)
              )
              .join(``)}
          </form>
@@ -54,8 +54,8 @@ class GameThreeImagesView extends AbstractView {
          if (event.target === img) {
            answer[index] = `painting`;
          }
-         this.handleAnswers(answer);
        });
+       this.handleAnswers(answer);
      }
    }
 

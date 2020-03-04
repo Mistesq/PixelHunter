@@ -25,7 +25,7 @@ export const initialState = {
   answers: []
 };
 
-export const MAX_LEVEL = 10;
+export const MAX_LEVEL = 5;
 
 export const QuestionTypes = {
   GAME_ONE_SCREEN: `oneImage`,

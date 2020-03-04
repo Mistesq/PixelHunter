@@ -1,6 +1,5 @@
 import AbstractView from "./abstract-view";
 import getResultScreen from "./resultScreen";
-import {isFailed} from "../data/data";
 
 class StatsView extends AbstractView {
   constructor(state) {
@@ -10,11 +9,9 @@ class StatsView extends AbstractView {
 
   get template() {
     const {state} = this;
-    const fail = isFailed(state);
-
-    const template = `
+    return  `
     <section class="result">
-        <h2 class="result__title">${fail ? `Поражение` : `Победа!`}</h2>
+        <h2 class="result__title">${this.state.lives < 0 ? `Поражение` : `Победа!`}</h2>
         ${getResultScreen(state)}
     </section>
    `;
