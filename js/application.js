@@ -3,6 +3,7 @@ import IntroView from "./screens/intro-view";
 import GreetingView from "./screens/greeting-view";
 import rulesScreen from "./screens/rules-screen";
 import gameScreen from "./screens/game-screen";
+import statsScreen from "./screens/stats-screen";
 
 class Application {
   static showInto() {
@@ -19,6 +20,11 @@ class Application {
 
   static showGame(model) {
     renderScreen(gameScreen(model));
+  }
+
+
+  static showStats(model) {
+    renderScreen(statsScreen(model));
   }
 }
 

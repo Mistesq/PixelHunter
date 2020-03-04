@@ -2,17 +2,20 @@ import GameThreeImagesView from "./gameThreeImages-view";
 import GameOneImageView from "./gameOneImage-view";
 import GameTwoImagesView from "./gameTwoImages-view";
 import {QuestionTypes, AnswerTypes} from "../constants";
-import {renderScreen, getRenderContainer} from "../utils";
+import {getRenderContainer} from "../utils";
 import getCorrectAnswerType from "../data/getCorrectAnswerType";
-import StatsView from "../screens/stats-view";
 import HeaderView from "./header-view";
+import Application from "../application";
 
 const gameScreen = (model) => {
-  window.model = model;
   const container = getRenderContainer();
   const game = getRenderContainer();
   const header = new HeaderView(model.state);
   let timeout;
+
+  const stopTimeout = () => {
+    clearTimeout(timeout);
+  };
 
   const updateView = (spot, view) => {
     spot.innerHTML = ``;
@@ -20,23 +23,23 @@ const gameScreen = (model) => {
   };
 
   const toggleScreens = (answer) => {
-    clearTimeout(timeout);
-
     const correct = model.isCorrect(answer);
     const answerType = correct
       ? getCorrectAnswerType(model.state.timer)
       : AnswerTypes.WRONG;
 
+    stopTimeout();
     model.toggleLevel(answerType);
 
     if (model.gameOver) {
-      renderScreen(new StatsView(model.state).element);
+      Application.showStats(model);
       return;
     }
-    startTimeout();
+
     header.updateTimer(model.state);
     header.updateLives(model.state);
     updateView(game, getGameView());
+    startTimeout();
   };
 
   const getGameView = () => {
@@ -66,7 +69,13 @@ const gameScreen = (model) => {
     }, 1000);
   };
 
+  header.onBackButton = () => {
+    stopTimeout();
+    Application.showGreetingScreen();
+  };
+
   startTimeout();
+
 
   game.appendChild(firstGameScreen);
   container.appendChild(header.element);
