@@ -1,5 +1,6 @@
 import getProgressBar from "./progressBar";
 import {AnswerTypes, Bonuses} from "../constants";
+import {isFailed} from "../utils";
 
 const countResults = ({answers, lives}) => {
   const countBonusesByAnswerType = (userAnswers, answerType) => {
@@ -42,12 +43,12 @@ const countResults = ({answers, lives}) => {
   return Object.assign({}, result, {total});
 };
 
-const getResultScreen = (state) => {
-  if (state.lives < 0) {
+const getResultScreen = (state, number) => {
+  if (isFailed(state)) {
     return `
       <table class="result__table">
         <tr>
-          <td class="result__number">2.</td>
+          <td class="result__number">${number}.</td>
           <td>
             ${getProgressBar(state.answers)}
           </td>
@@ -58,12 +59,12 @@ const getResultScreen = (state) => {
     `;
   }
 
-  const results = countResults(state);
+  const results = countResults(state, number);
 
   return `
   <table class="result__table">
     <tr>
-      <td class="result__number">1.</td>
+      <td class="result__number">${number}</td>
       <td colspan="2">
         ${getProgressBar(state.answers)}
       </td>

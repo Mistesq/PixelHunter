@@ -1,4 +1,11 @@
 import GreetingView from "./screens/greeting-view";
+import {DEBUG} from "./constants";
+
+export const isDebug = () => {
+  const hash = window.location.hash.replace(`#`, ``);
+
+  return hash.toLowerCase() === DEBUG;
+};
 
 export const handleBackButtonClick = (element, unsubscribe) => {
   const arrow = element.querySelector(`.back`);
@@ -47,4 +54,14 @@ export const getRenderContainer = (template = ``, tagName = `div`) => {
   const wrapper = document.createElement(tagName);
   wrapper.innerHTML = template.trim();
   return wrapper;
+};
+
+export const handleRotate = (event) => {
+  const {target} = event;
+
+  target.classList.add(`rotated`);
+};
+
+export const isFailed = (state) => {
+  return state.lives < 0;
 };

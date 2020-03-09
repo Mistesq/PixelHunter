@@ -28,9 +28,14 @@ export const initialState = {
 export const MAX_LEVEL = 5;
 
 export const QuestionTypes = {
-  GAME_ONE_SCREEN: `oneImage`,
-  GAME_TWO_SCREEN: `twoImages`,
-  GAME_THREE_SCREEN: `threeImages`
+  GAME_ONE_SCREEN: 'tinder-like',
+  GAME_TWO_SCREEN: 'two-of-two',
+  GAME_THREE_SCREEN: 'one-of-three'
+};
+
+export const ImageTypes = {
+  PHOTO: `photo`,
+  PAINTING: `painting`
 };
 
 export const Bonuses = {
@@ -39,3 +44,5 @@ export const Bonuses = {
   [AnswerTypes.NORMAL]: 100,
   LIVES: 50
 };
+
+export const DEBUG = `debug`;

@@ -1,5 +1,6 @@
 import AbstractView from "./abstract-view";
 import getProgressBar from "./progressBar";
+import {ImageTypes} from "../constants";
 
 class GameThreeImagesView extends AbstractView {
   constructor(state, level, callback) {
@@ -47,12 +48,26 @@ class GameThreeImagesView extends AbstractView {
      this.formElement.removeEventListener(`click`, this.answersHandler);
    }
 
+   getAnswerKeys(answers) {
+    const paintings = answers.filter(
+        (answer) => answer.type === ImageTypes.PAINTING
+    );
+
+    if (paintings.length === 1) {
+      return {fill: ImageTypes.PHOTO, answer: ImageTypes.PAINTING};
+    }
+
+    return {fill: ImageTypes.PAINTING, answer: ImageTypes.PHOTO};
+  }
+
    answerHandler(event) {
+     const answerKeys = this.getAnswerKeys(this.level.answers);
+
      if (event.target.tagName === `IMG`) {
-       const answer = new Array(3).fill(`photo`);
+       const answer = new Array(3).fill(answerKeys.fill);
        this.images.forEach((img, index) => {
          if (event.target === img) {
-           answer[index] = `painting`;
+           answer[index] = answerKeys.answer;
          }
        });
        this.handleAnswers(answer);

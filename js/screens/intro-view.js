@@ -25,8 +25,8 @@ class IntroView extends AbstractView {
     this._asterisk.removeEventListener(`click`, this.onAsreriskClick);
   }
 
-  onAsreriskClick() {
-    this.callback();
+  onAsreriskClick(event) {
+    this.callback(event);
     this.unbind();
   }
 }

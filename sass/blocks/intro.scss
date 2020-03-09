@@ -21,8 +21,26 @@
   top: 290px;
   left: 395px;
 
+  width: 76px;
+  height: 76px;
+
   font-size: 172px;
   line-height: 128px;
+  outline: none;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.intro__asterisk.rotated {
+  animation: 1s linear 0s normal none infinite running rot;
 }
 
 .intro__motto {
